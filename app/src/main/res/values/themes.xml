@@ -1,0 +1,10 @@
+<resources>
+    <style name="Theme.Lab3" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/tg_blue</item>
+        <item name="colorPrimaryDark">@color/tg_blue</item>
+        <item name="colorAccent">@color/tg_blue_dark</item>
+        <item name="android:statusBarColor">@color/tg_blue</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/tg_background</item>
+    </style>
+</resources>

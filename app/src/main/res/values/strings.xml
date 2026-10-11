@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Калькулятор</string>
+    <string name="app_title">Калькулятор</string>
+    <string name="hint_1">Введіть перше число</string>
+    <string name="hint_2">Введіть друге число</string>
+    <string name="multiply">Помножити числа</string>
+    <string name="empty_error">Введіть число</string>
+</resources>
