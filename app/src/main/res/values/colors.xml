@@ -3,9 +3,10 @@
     <color name="tg_blue">#00FFFF</color>
     <color name="tg_blue_dark">#00CCCC</color>
     <color name="tg_background">#FFFFFF</color>
-    <color name="tg_bubble">#00FFFF</color>
     <color name="tg_text">#000000</color>
+    <color name="tg_secondary">#37474F</color>
     <color name="tg_hint">#8E8E93</color>
-    <color name="tg_stroke">#00FFFF</color>
+    <color name="tg_key_digit">#E6FFFF</color>
+    <color name="tg_key_clear">#B3FFFF</color>
     <color name="white">#FFFFFF</color>
 </resources>
