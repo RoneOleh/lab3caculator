@@ -1,5 +1,6 @@
 package com.example.lab3;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -7,18 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
-    private static final String[] FUNCTIONS = {"sin", "cos", "tan", "ln", "log", "√"};
-    private static final String OPERATORS = "+−×÷^";
+public class MainActivity extends AppCompatActivity {
 
     private TextView expressionTextView;
     private TextView resultTextView;
+    private TextView modeTextView;
     private View extraRow;
 
-    private String expression = "";
-    private boolean degrees = true;
-    private boolean justEvaluated = false;
+    private CalculatorModel model;
+    private HistoryStorage historyStorage;
+    private HandwritingDialog handwritingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,105 +28,66 @@ public class MainActivity extends AppCompatActivity {
 
         expressionTextView = findViewById(R.id.expressionTextView);
         resultTextView = findViewById(R.id.resultTextView);
+        modeTextView = findViewById(R.id.modeTextView);
         extraRow = findViewById(R.id.extraRow);
+
+        historyStorage = new HistoryStorage(this);
+        model = new CalculatorModel(historyStorage.load());
+        handwritingDialog = new HandwritingDialog(this, text -> {
+            model.insertText(text);
+            updateScreen();
+        });
+
+        updateScreen();
     }
 
     public void onButtonClick(View view) {
-        String key = ((Button) view).getText().toString();
+        Button button = (Button) view;
+        String key = button.getText().toString();
+
         switch (key) {
-            case "AC":
-                expression = "";
-                justEvaluated = false;
-                break;
-            case "⌫":
-                backspace();
-                break;
-            case "=":
-                calculate();
-                return;
             case "▾":
             case "▴":
-                toggleExtraRow((Button) view);
+                toggleExtraRow(button);
                 return;
             case "Deg":
             case "Rad":
-                degrees = !degrees;
-                ((Button) view).setText(degrees ? "Deg" : "Rad");
-                break;
-            case "( )":
-                startNewIfNeeded();
-                addBracket();
-                break;
-            case ".":
-                addDot();
-                break;
-            case "+":
-            case "−":
-            case "×":
-            case "÷":
-            case "^":
-                addOperator(key);
-                break;
-            case "%":
-            case "!":
-                addPostfix(key);
-                break;
-            case "sin":
-            case "cos":
-            case "tan":
-            case "ln":
-            case "log":
-            case "√":
-                startNewIfNeeded();
-                expression += key + "(";
+                model.toggleAngleMode();
+                button.setText(model.isDegrees() ? "Deg" : "Rad");
                 break;
             default:
-                startNewIfNeeded();
-                expression += key;
+                model.press(key);
         }
-        updateDisplay();
+
+        if (key.equals("=")) {
+            historyStorage.save(model.getHistory());
+        }
+        updateScreen();
     }
 
-    private void calculate() {
-        if (expression.isEmpty()) {
-            return;
+    public void onHistoryClick(View view) {
+        List<String> history = model.getHistory();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle(R.string.history);
+
+        if (history.isEmpty()) {
+            builder.setMessage(R.string.history_empty);
+        } else {
+            builder.setItems(history.toArray(new String[0]), (dialog, which) -> {
+                model.useHistoryItem(which);
+                updateScreen();
+            });
+            builder.setNeutralButton(R.string.clear, (dialog, which) -> {
+                model.clearHistory();
+                historyStorage.save(model.getHistory());
+            });
         }
-        try {
-            double value = new ExpressionEvaluator(expression, degrees).evaluate();
-            String text = ExpressionEvaluator.format(value);
-            String previous = expression;
-            expression = text.contains("E") ? "" : text;
-            justEvaluated = true;
-            expressionTextView.setText(text);
-            resultTextView.setText(previous + " =");
-        } catch (Exception e) {
-            resultTextView.setText(R.string.error);
-        }
+
+        builder.setPositiveButton(R.string.close, null);
+        builder.show();
     }
 
-    private void updateDisplay() {
-        expressionTextView.setText(expression);
-        resultTextView.setText(preview());
-    }
-
-    private String preview() {
-        if (expression.isEmpty() || justEvaluated) {
-            return "";
-        }
-        try {
-            String text = ExpressionEvaluator.format(
-                    new ExpressionEvaluator(expression, degrees).evaluate());
-            return text.equals(expression) ? "" : text;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-    private void startNewIfNeeded() {
-        if (justEvaluated) {
-            expression = "";
-            justEvaluated = false;
-        }
+    public void onHandwritingClick(View view) {
+        handwritingDialog.show();
     }
 
     private void toggleExtraRow(Button button) {
@@ -134,82 +96,16 @@ public class MainActivity extends AppCompatActivity {
         button.setText(show ? "▴" : "▾");
     }
 
-    private void backspace() {
-        justEvaluated = false;
-        for (String function : FUNCTIONS) {
-            if (expression.endsWith(function + "(")) {
-                expression = expression.substring(0, expression.length() - function.length() - 1);
-                return;
-            }
-        }
-        if (!expression.isEmpty()) {
-            expression = expression.substring(0, expression.length() - 1);
-        }
-    }
+    private void updateScreen() {
+        expressionTextView.setText(model.getExpression());
+        modeTextView.setText(model.isDegrees() ? R.string.angle_degrees : R.string.angle_radians);
 
-    private void addBracket() {
-        int open = 0;
-        int close = 0;
-        for (char c : expression.toCharArray()) {
-            if (c == '(') {
-                open++;
-            } else if (c == ')') {
-                close++;
-            }
-        }
-        char last = expression.isEmpty() ? ' ' : expression.charAt(expression.length() - 1);
-        boolean canClose = open > close
-                && (Character.isLetterOrDigit(last) || last == ')' || last == '!' || last == '%');
-        expression += canClose ? ")" : "(";
-    }
-
-    private void addDot() {
-        startNewIfNeeded();
-        int i = expression.length() - 1;
-        while (i >= 0 && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
-            if (expression.charAt(i) == '.') {
-                return;
-            }
-            i--;
-        }
-        boolean afterDigit = i < expression.length() - 1;
-        expression += afterDigit ? "." : "0.";
-    }
-
-    private void addOperator(String operator) {
-        justEvaluated = false;
-        if (expression.isEmpty()) {
-            if (operator.equals("−")) {
-                expression = operator;
-            }
-            return;
-        }
-        char last = expression.charAt(expression.length() - 1);
-        if (last == '(') {
-            if (operator.equals("−")) {
-                expression += operator;
-            }
-            return;
-        }
-        if (OPERATORS.indexOf(last) >= 0) {
-            int before = expression.length() - 2;
-            if (before < 0 || expression.charAt(before) == '(') {
-                return;
-            }
-            expression = expression.substring(0, expression.length() - 1) + operator;
-            return;
-        }
-        expression += operator;
-    }
-
-    private void addPostfix(String key) {
-        justEvaluated = false;
-        if (expression.isEmpty()) {
-            return;
-        }
-        char last = expression.charAt(expression.length() - 1);
-        if (Character.isLetterOrDigit(last) || last == ')' || last == '!' || last == '%') {
-            expression += key;
+        if (model.isError()) {
+            resultTextView.setText(R.string.error);
+            resultTextView.setTextColor(getColor(R.color.tg_error));
+        } else {
+            resultTextView.setText(model.getSecondaryText());
+            resultTextView.setTextColor(getColor(R.color.tg_secondary));
         }
     }
 }

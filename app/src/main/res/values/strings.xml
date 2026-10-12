@@ -1,4 +1,22 @@
 <resources>
     <string name="app_name">Калькулятор</string>
+    <string name="zero">0</string>
     <string name="error">Помилка</string>
+    <string name="angle_degrees">DEG</string>
+    <string name="angle_radians">RAD</string>
+    <string name="key_backspace">Стерти</string>
+    <string name="key_more">Більше функцій</string>
+    <string name="history">Історія</string>
+    <string name="history_empty">Історія порожня</string>
+    <string name="handwriting">Рукописний ввід</string>
+    <string name="handwriting_hint">Напишіть вираз пальцем і натисніть «Вставити»</string>
+    <string name="handwriting_empty">Спочатку напишіть вираз</string>
+    <string name="handwriting_recognizing">Розпізнаю…</string>
+    <string name="handwriting_not_recognized">Не вдалося розпізнати, спробуйте ще раз</string>
+    <string name="handwriting_unavailable">Розпізнавання недоступне</string>
+    <string name="handwriting_model_loading">Модель ще завантажується. Увімкніть інтернет і спробуйте через хвилину</string>
+    <string name="insert">Вставити</string>
+    <string name="clear">Очистити</string>
+    <string name="cancel">Скасувати</string>
+    <string name="close">Закрити</string>
 </resources>

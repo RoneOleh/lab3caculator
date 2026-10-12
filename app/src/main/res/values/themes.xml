@@ -6,6 +6,11 @@
         <item name="android:statusBarColor">@color/tg_blue</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/tg_background</item>
+        <item name="alertDialogTheme">@style/Theme.Lab3.Dialog</item>
+    </style>
+
+    <style name="Theme.Lab3.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/tg_dialog_accent</item>
     </style>
 
     <style name="CalcButton" parent="Widget.AppCompat.Button">
@@ -23,19 +28,28 @@
     </style>
 
     <style name="CalcOperator" parent="CalcButton">
+        <item name="android:textSize">30sp</item>
         <item name="android:background">@drawable/bg_key_operator</item>
     </style>
 
     <style name="CalcClear" parent="CalcButton">
+        <item name="android:textSize">24sp</item>
         <item name="android:background">@drawable/bg_key_clear</item>
     </style>
 
     <style name="CalcEqual" parent="CalcButton">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/bg_key_equal</item>
     </style>
 
     <style name="CalcSci" parent="CalcButton">
         <item name="android:textSize">20sp</item>
         <item name="android:background">@drawable/bg_key_sci</item>
+    </style>
+
+    <style name="CalcBackspace" parent="CalcButton">
+        <item name="android:textSize">24sp</item>
+        <item name="android:background">@drawable/bg_key_back</item>
     </style>
 </resources>
