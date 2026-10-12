@@ -115,8 +115,9 @@ public class HandwritingDialog {
                 case '/':
                     result.append('÷');
                     break;
+                case '.':
                 case ',':
-                    result.append('.');
+                    result.append(',');
                     break;
                 case ' ':
                 case '=':

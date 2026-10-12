@@ -65,8 +65,8 @@ public class CalculatorModel {
                 startNewIfNeeded();
                 addBracket();
                 break;
-            case ".":
-                addDot();
+            case ",":
+                addComma();
                 break;
             case "+":
             case "−":
@@ -190,17 +190,17 @@ public class CalculatorModel {
         expression += canClose ? ")" : "(";
     }
 
-    private void addDot() {
+    private void addComma() {
         startNewIfNeeded();
         int i = expression.length() - 1;
-        while (i >= 0 && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')) {
-            if (expression.charAt(i) == '.') {
+        while (i >= 0 && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == ',')) {
+            if (expression.charAt(i) == ',') {
                 return;
             }
             i--;
         }
         boolean afterDigit = i < expression.length() - 1;
-        expression += afterDigit ? "." : "0.";
+        expression += afterDigit ? "," : "0,";
     }
 
     private void addOperator(String operator) {

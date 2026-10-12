@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tg_background"
@@ -9,6 +10,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/displayPanel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -82,7 +84,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -213,12 +215,39 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="12dp"
         android:paddingEnd="12dp">
+
+        <com.example.lab3.SquareButton
+            style="@style/CalcClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:onClick="onButtonClick"
+            android:text="AC" />
+
+        <com.example.lab3.SquareButton
+            style="@style/CalcClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:onClick="onButtonClick"
+            android:text="( )" />
+
+        <com.example.lab3.SquareButton
+            style="@style/CalcClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:onClick="onButtonClick"
+            android:text="%" />
 
         <com.example.lab3.SquareButton
             style="@style/CalcOperator"
@@ -228,33 +257,6 @@
             android:layout_weight="1"
             android:onClick="onButtonClick"
             android:text="÷" />
-
-        <com.example.lab3.SquareButton
-            style="@style/CalcOperator"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:onClick="onButtonClick"
-            android:text="×" />
-
-        <com.example.lab3.SquareButton
-            style="@style/CalcOperator"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:onClick="onButtonClick"
-            android:text="−" />
-
-        <com.example.lab3.SquareButton
-            style="@style/CalcOperator"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:onClick="onButtonClick"
-            android:text="+" />
 
     </LinearLayout>
 
@@ -293,13 +295,13 @@
             android:text="9" />
 
         <com.example.lab3.SquareButton
-            style="@style/CalcClear"
+            style="@style/CalcOperator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:onClick="onButtonClick"
-            android:text="AC" />
+            android:text="×" />
 
     </LinearLayout>
 
@@ -338,13 +340,13 @@
             android:text="6" />
 
         <com.example.lab3.SquareButton
-            style="@style/CalcClear"
+            style="@style/CalcOperator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:onClick="onButtonClick"
-            android:text="( )" />
+            android:text="−" />
 
     </LinearLayout>
 
@@ -383,13 +385,13 @@
             android:text="3" />
 
         <com.example.lab3.SquareButton
-            style="@style/CalcClear"
+            style="@style/CalcOperator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:onClick="onButtonClick"
-            android:text="%" />
+            android:text="+" />
 
     </LinearLayout>
 
@@ -416,34 +418,25 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:onClick="onButtonClick"
-            android:text="00" />
+            android:text="," />
 
-        <com.example.lab3.SquareButton
-            style="@style/CalcDigit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:onClick="onButtonClick"
-            android:text="." />
-
-        <com.example.lab3.SquareButton
+        <Button
             style="@style/CalcEqual"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="4dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:onClick="onButtonClick"
             android:text="=" />
-
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="12dp"
-        android:paddingTop="4dp"
+        android:paddingTop="6dp"
         android:paddingEnd="12dp"
         android:paddingBottom="12dp">
 

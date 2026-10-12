@@ -33,7 +33,7 @@ public class ExpressionEvaluator {
         } else {
             text = number.toPlainString();
         }
-        return text.replace('-', '−');
+        return text.replace('-', '−').replace('.', ',');
     }
 
     private double parseExpression() {
@@ -128,7 +128,7 @@ public class ExpressionEvaluator {
             pos++;
             return Math.sqrt(parseArgument());
         }
-        if (Character.isDigit(c) || c == '.') {
+        if (Character.isDigit(c) || c == ',' || c == '.') {
             return parseNumber();
         }
         return parseFunction();
@@ -178,10 +178,10 @@ public class ExpressionEvaluator {
     private double parseNumber() {
         int start = pos;
         while (pos < input.length()
-                && (Character.isDigit(input.charAt(pos)) || input.charAt(pos) == '.')) {
+                && (Character.isDigit(input.charAt(pos)) || input.charAt(pos) == ',' || input.charAt(pos) == '.')) {
             pos++;
         }
-        return Double.parseDouble(input.substring(start, pos));
+        return Double.parseDouble(input.substring(start, pos).replace(',', '.'));
     }
 
     private double factorial(double n) {
@@ -208,6 +208,6 @@ public class ExpressionEvaluator {
     }
 
     private boolean startsFactor(char c) {
-        return Character.isLetterOrDigit(c) || c == '.' || c == '(' || c == '√';
+        return Character.isLetterOrDigit(c) || c == ',' || c == '.' || c == '(' || c == '√';
     }
 }

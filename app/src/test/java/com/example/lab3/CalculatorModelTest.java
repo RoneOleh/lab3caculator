@@ -59,15 +59,15 @@ public class CalculatorModelTest {
     }
 
     @Test
-    public void onlyOneDotInNumber() {
-        press("1", ".", "5", ".", "2");
-        assertEquals("1.52", model.getExpression());
+    public void onlyOneCommaInNumber() {
+        press("1", ",", "5", ",", "2");
+        assertEquals("1,52", model.getExpression());
     }
 
     @Test
-    public void dotAtStartAddsZero() {
-        press(".");
-        assertEquals("0.", model.getExpression());
+    public void commaAtStartAddsZero() {
+        press(",");
+        assertEquals("0,", model.getExpression());
     }
 
     @Test

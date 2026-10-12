@@ -74,8 +74,13 @@ public class ExpressionEvaluatorTest {
     }
 
     @Test
+    public void decimalComma() {
+        assertEquals(0.75, calc("0,5+0,25"), 1e-9);
+    }
+
+    @Test
     public void formatting() {
-        assertEquals("0.3", ExpressionEvaluator.format(0.1 + 0.2));
+        assertEquals("0,3", ExpressionEvaluator.format(0.1 + 0.2));
         assertEquals("−5", ExpressionEvaluator.format(-5.0));
         assertEquals("100", ExpressionEvaluator.format(100.0));
     }

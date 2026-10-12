@@ -3,14 +3,15 @@
     <color name="tg_blue">#00FFFF</color>
     <color name="tg_blue_dark">#00CCCC</color>
     <color name="tg_background">#FFFFFF</color>
+    <color name="tg_display">#DFF7F7</color>
     <color name="tg_text">#000000</color>
     <color name="tg_secondary">#37474F</color>
     <color name="tg_error">#B00020</color>
-    <color name="tg_key_digit">#E6FFFF</color>
-    <color name="tg_key_sci">#F2FFFF</color>
-    <color name="tg_key_clear">#B3FFFF</color>
-    <color name="tg_key_stroke">#7FDDDD</color>
-    <color name="tg_glass">#8CFFFFFF</color>
+    <color name="tg_key_digit">#F2FCFC</color>
+    <color name="tg_key_sci">#F7FEFE</color>
+    <color name="tg_key_clear">#CFF5F5</color>
+    <color name="tg_key_stroke">#A8E8E8</color>
+    <color name="tg_glass">#BFFFFFFF</color>
     <color name="tg_dialog_accent">#006064</color>
     <color name="white">#FFFFFF</color>
 </resources>
