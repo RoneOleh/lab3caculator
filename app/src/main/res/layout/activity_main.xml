@@ -458,14 +458,6 @@
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_history" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/history"
-                android:textColor="@color/tg_text"
-                android:textSize="17sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -485,14 +477,6 @@
                 android:layout_height="22dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_pen" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/handwriting"
-                android:textColor="@color/tg_text"
-                android:textSize="17sp" />
 
         </LinearLayout>
 

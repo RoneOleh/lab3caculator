@@ -181,7 +181,11 @@ public class ExpressionEvaluator {
                 && (Character.isDigit(input.charAt(pos)) || input.charAt(pos) == ',' || input.charAt(pos) == '.')) {
             pos++;
         }
-        return Double.parseDouble(input.substring(start, pos).replace(',', '.'));
+        try {
+            return Double.parseDouble(input.substring(start, pos).replace(',', '.'));
+        } catch (NumberFormatException e) {
+            throw new ArithmeticException();
+        }
     }
 
     private double factorial(double n) {
